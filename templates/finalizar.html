@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar compra</title>
+</head>
+<body>
+
+<h2>Finalizar la compra</h2>
+<p>¿Deseas añadir <strong>{{ juego }}</strong> a tu cuenta?</p>
+
+<img src="{{ url_for('static', filename='img/' + imagen) }}" alt="{{ juego }}" width="200px">
+
+<form method="post" action="{{ url_for('confirmar') }}">
+    <input type="hidden" name="juego" value="{{ juego }}">
+    <input type="hidden" name="imagen" value="{{ imagen }}">
+    <button type="submit">Confirmar compra</button>
+</form>
+
+</body>
+</html>

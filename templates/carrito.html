@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrito.css') }}">
+</head>
+<body>
+
+<h2 align="center">Tu carrito de compras</h2>
+
+{% if juego %}
+    <div class="carrito">
+    <h3>{{ juego }}</h3>
+
+    <div class="item">
+        <img src="{{ url_for('static', filename='img/' + imagen) }}" alt="{{ juego }}" width="250px">
+
+        <div class="descripcion">
+            <p>{{ descripcion }}</p>
+            <form action="{{ url_for('finalizar') }}" method="post">
+                <input type="hidden" name="juego" value="{{ juego }}">
+                <input type="hidden" name="imagen" value="{{ imagen }}">
+                <button type="submit">Comprar ahora</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+    <p>No hay juegos en el carrito.</p>
+{% endif %}
+
+<a href="{{ url_for('oferta') }}">Volver a ofertas</a>
+
+</body>
+</html>

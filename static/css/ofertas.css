@@ -1,0 +1,20 @@
+.contenedor-imagenes {
+    display: flex;
+    justify-content: center; 
+    gap: 100px; 
+    margin-top: 100px;
+
+}
+
+
+.contenedor-imagenes img {
+    width: 210px; 
+    height: 210px;
+    border-radius: 10px; 
+}
+.img{
+    display: flex;
+    justify-content: center; 
+    gap: 100px; 
+    margin-top: 100px;
+}

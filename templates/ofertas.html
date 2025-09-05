@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofertas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ofertas.css') }}">
+</head>
+<body>
+
+<h2 align="center">Ofertas de invierno</h2>
+
+<div class="contenedor-imagenes">
+    <div>
+        <img src="{{ url_for('static', filename='img/elden.jpg') }}" alt="Elden Ring" width="200px">
+        <a href="{{ url_for('carrito', juego='Elden Ring') }}"><p><strong>De $65.00 a $30.000</strong></p></a>
+    </div>
+
+    <div>
+        <img src="{{ url_for('static', filename='img/mortal.jpg') }}" alt="Mortal Kombat 1" width="200px">
+        <a href="{{ url_for('carrito', juego='Mortal Kombat 1') }}"><p><strong>De $60.000 a $25.000</strong></p></a>
+    </div>
+
+    <div>
+        <img src="{{ url_for('static', filename='img/total.jpg') }}" alt="Tercera imagen" width="200px">
+        <a href="{{ url_for('carrito', juego='Tercera imagen') }}"><p><strong>De $70.000 a $20.000</strong></p></a>
+    </div>
+</div>
+
+</body>
+</html>

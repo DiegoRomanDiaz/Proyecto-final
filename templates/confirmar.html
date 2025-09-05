@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra realizada</title>
+</head>
+<body>
+
+<h2>¡Compra realizada con éxito!</h2>
+<p>El juego <strong>{{ juego }}</strong> ha sido añadido a tu cuenta.</p>
+<img src="{{ url_for('static', filename='img/' + imagen) }}" alt="{{ juego }}" width="200px">
+
+<a href="{{ url_for('oferta') }}">Volver a las ofertas</a>
+
+</body>
+</html>
