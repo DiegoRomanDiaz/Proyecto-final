@@ -24,6 +24,7 @@ def carrito():
         imagen = "mortal.jpg"
         descripcion="Descubre un nuevo universo de Mortal Kombat™creado por Liu Kang, Dios del Fuego. ¡Mortal Kombat™ 1 abre paso a una nueva era de esta icónica saga con un nuevo sistema de kombate, modos de juego y fatalities!"
     else:
+        juego =="Total War:Warhammer 3"
         imagen = "total.jpg"
         descripcion="El final cataclísmico de la trilogía de Total War™: WARHAMMER® ha llegado. Reagrupa a tus fuerzas y adéntrate en el Reino del Caos, una dimensión de terrores horripilantes en la que se decidirá el destino del mundo. ¿Conquistarás a tus demonios... o los dirigirás?"
     return render_template('carrito.html', juego=juego, imagen=imagen, descripcion=descripcion)
