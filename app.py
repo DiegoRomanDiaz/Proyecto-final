@@ -1,8 +1,14 @@
-from flask import Flask, render_template, session, request, redirect
+from flask import Flask, render_template, request, redirect, url_for, session
+import sqlite3
+
 app = Flask(__name__)
-@app.route('/')
+app.secret_key = "clave_super_secreta"
+
+
+@app.route("/")
 def index():
-    return render_template('index.html')
+    
+    return render_template("index.html")
 
 @app.route('/login')
 def login():
@@ -40,6 +46,81 @@ def confirmar():
     juego = request.form.get('juego')
     imagen = request.form.get('imagen')
     return render_template('confirmar.html', juego=juego, imagen=imagen)
+
+@app.route("/admin", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "POST":
+        usuario = request.form["usuario"]
+        password = request.form["password"]
+
+        if usuario == "admin" and password == "1234":
+            session["admin"] = True
+            return redirect(url_for("admin_juegos"))
+        else:
+            return render_template("admin-login.html", error="Credenciales incorrectas")
+    return render_template("admin-login.html")
+
+@app.route("/admin/juegos")
+def admin_juegos():
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    conn = sqlite3.connect("juegos.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM juegos")
+    juegos = cursor.fetchall()
+    conn.close()
+
+    return render_template("admin-juegos.html", juegos=juegos)
+
+@app.route("/admin/nuevo", methods=["GET", "POST"])
+def admin_nuevo():
+    if not session.get("admin"):
+        return redirect(url_for("admin-login"))
+
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        imagen = request.form["imagen"]
+        precio = request.form["precio"]
+
+        conn = sqlite3.connect("juegos.db")
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO juegos (nombre, imagen, precio) VALUES (?, ?, ?)", (nombre, imagen, precio))
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for("admin_juegos"))
+
+    return render_template("admin-nuevo.html")
+
+@app.route("/admin/editar/<int:id>", methods=["GET", "POST"])
+def admin_editar(id):
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    conn = sqlite3.connect("juegos.db")
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        imagen = request.form["imagen"]
+        precio = request.form["precio"]
+
+        cursor.execute("UPDATE juegos SET nombre=?, imagen=?, precio=? WHERE id=?", (nombre, imagen, precio, id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for("admin_juegos"))
+
+    cursor.execute("SELECT * FROM juegos WHERE id=?", (id,))
+    juego = cursor.fetchone()
+    conn.close()
+
+    return render_template("admin-editar.html", juego=juego)
+
+@app.route("/admin/logout")
+def admin_logout():
+    session.pop("admin", None)
+    return redirect(url_for("admin_login"))
 
 if __name__ == '__main__':
     app.run(debug=True)

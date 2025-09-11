@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Agregar Juego</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/nuevo.css') }}">
 </head>
 <body>
-    <h2>Agregar nuevo juego</h2>
+    <div class="nuevo" >
+<h2>Agregar nuevo juego</h2>
     <form method="post">
         <input type="text" name="nombre" placeholder="Nombre del juego" required><br>
         <input type="text" name="imagen" placeholder="Nombre de la imagen" required><br>
@@ -13,5 +15,8 @@
         <button type="submit">Guardar</button>
     </form>
     <a href="{{ url_for('admin_juegos') }}">Volver</a>
+
+    </div>
+    
 </body>
 </html>
